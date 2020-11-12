@@ -9,3 +9,6 @@ GraphQL API : query를 이용하여 데이터를 얻는다. (query는 Axios의 f
         
 ### Apollo Client
 GraphQL API를 호출하기 위해 사용되는 라이브러리이다.
+           
+### React Apollo Cache
+React Apollo는 요청을 통해서 무언가를 얻어오면 그것을 저장해둔다. (loading을 덜 볼 수 있다)         

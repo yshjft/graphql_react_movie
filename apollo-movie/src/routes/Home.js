@@ -66,7 +66,13 @@ export default ()=>{
                 <Subtitle>I love GraphQL</Subtitle>
             </Header>
             {loading && <Loading>...Loading</Loading>}
-            {!loading && data.movies && data.movies.map ((movie,index) => <Movie key={index} id={movie.id}/>)}
+            {!loading && data.movies && (
+                <Movies>
+                    {data.movies.map ((movie,index) => (
+                        <Movie key={index} id={movie.id} bg={movie.medium_cover_image}/>
+                    ))}
+                </Movies>
+            )}
         </Container>
     )
 };
