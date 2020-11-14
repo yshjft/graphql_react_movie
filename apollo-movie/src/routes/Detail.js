@@ -5,15 +5,19 @@ import {useQuery} from "@apollo/react-hooks";
 import styled from "styled-components";
 
 const GET_MOVIE = gql`
-    query getMovie($id: Int!){
-        movie(id: $id) {
-            title
-            medium_cover_image
-            language
-            rating
-            description_intro
-        }
-    }
+  query getMovie($id: Int!){
+      movie(id: $id) {
+          title
+          medium_cover_image
+          language
+          rating
+          description_intro
+      }
+      suggestions(id:$id){
+          id
+          medium_cover_image
+      }
+  }
 `
 
 const Container = styled.div`
@@ -59,18 +63,25 @@ export default () => {
     const {loading, data} = useQuery(GET_MOVIE, {
         variables: {id: parseInt(id)}
     });
+
+    console.log(data)
     return (
         <Container>
             <Column>
-        <Title>
-            {loading
-                ? "Loading..."
-                : `${data.movie.title}`}
-        </Title>
-                <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
-                <Description>{data?.movie?.description_intro}</Description>
+              <Title>
+                  {loading
+                      ? "Loading..."
+                      : `${data.movie.title}`}
+              </Title>
+              {!loading && data.movie && (
+                <>
+                  <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
+                  <Description>{data?.movie?.description_intro}</Description>
+                </>
+              )}
             </Column>
             <Poster bg={data?.movie?.medium_cover_image}></Poster>
+            {/* {data?.suggestinos?.map(suggestion => )} */}
         </Container>
     )
 }
